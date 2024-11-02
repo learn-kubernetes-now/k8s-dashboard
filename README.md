@@ -12,7 +12,8 @@ kubectl apply -f dashboard-adminuser.yaml
 
 kubectl apply -f dashboard-read-only-role.yaml
 
-kubectl get secret $(kubectl get serviceaccount dashboard-user -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode
+kubectl get secret admin-user -n kubernetes-dashboard -o jsonpath={".data.token"} | base64 -d
+
 
 kubectl -n kubernetes-dashboard delete serviceaccount dashboard-user
 
